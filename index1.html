@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clipboard Test Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #clipboard-output {
+            margin-top: 20px;
+            font-size: 18px;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <h1>Clipboard Reading Test</h1>
+    <button id="read-clipboard">Read Clipboard</button>
+    <p id="clipboard-output"></p>
+
+    <script>
+        document.getElementById('read-clipboard').addEventListener('click', function() {
+            // Ensure the browser supports the Clipboard API
+            if (navigator.clipboard) {
+                navigator.clipboard.readText().then(function(text) {
+                    console.log('Clipboard content:', text);
+                    // Display clipboard content on the page
+                    document.getElementById('clipboard-output').innerText = 'Clipboard content: ' + text;
+                }).catch(function(err) {
+                    console.error('Failed to read clipboard:', err);
+                    document.getElementById('clipboard-output').innerText = 'Failed to read clipboard.';
+                });
+            } else {
+                console.log('Clipboard API is not supported in this browser.');
+                document.getElementById('clipboard-output').innerText = 'Clipboard API is not supported.';
+            }
+        });
+    </script>
+</body>
+</html>
